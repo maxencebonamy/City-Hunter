@@ -148,7 +148,7 @@ class _GameViewState extends State<GameView> {
                 ),
                 const SizedBox(height: 20),
                 ElevatedButton(
-                  onPressed: () => {},
+                  onPressed: () => {Navigator.of(context).pop()},
                   style: ButtonStyle(
                     backgroundColor: WidgetStateProperty.all(Colors.red),
                     foregroundColor: WidgetStateProperty.all(Colors.white),
@@ -169,14 +169,14 @@ class _GameViewState extends State<GameView> {
               options: MapOptions(
                 initialCenter: const LatLng(46.603354, 1.888334),
                 initialZoom: 5.2,
-                interactionOptions: const InteractionOptions(
+                interactionOptions: InteractionOptions(
                   flags: InteractiveFlag.all & ~InteractiveFlag.rotate,
                 ),
-                // onTap: (tapPosition, point) {
-                //   setState(() {
-                //     currentPosition = point;
-                //   });
-                // },
+                onTap: (tapPosition, point) {
+                  setState(() {
+                    currentPosition = point;
+                  });
+                },
               ),
               children: [
                 TileLayer(

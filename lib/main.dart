@@ -5,6 +5,7 @@ import 'package:project/models/city.dart';
 import 'package:project/repositories/city_repository.dart';
 import 'package:project/ui/views/game_view.dart';
 import 'package:project/ui/views/home_view.dart';
+import 'package:project/ui/views/scores_view.dart';
 import 'package:project/utils/random.dart';
 
 void main() {
@@ -32,7 +33,7 @@ class MyApp extends StatelessWidget {
       ),
       routes: {
         '/game': (context) => const GameView(),
-        // '/scores': (context) => const ScoresView(),
+        '/scores': (context) => const ScoresView(),
       },
       home: MyHomePage(title: 'Villes de France'),
     );
@@ -54,7 +55,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   final List<Widget> _screens = [
     const HomeView(),
-    const GameView(),
+    const ScoresView(),
   ];
 
   void fetchRandomCities(List<City> cities) {
