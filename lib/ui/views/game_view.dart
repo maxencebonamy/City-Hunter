@@ -169,14 +169,14 @@ class _GameViewState extends State<GameView> {
               options: MapOptions(
                 initialCenter: const LatLng(46.603354, 1.888334),
                 initialZoom: 5.2,
-                interactionOptions: InteractionOptions(
+                interactionOptions: const InteractionOptions(
                   flags: InteractiveFlag.all & ~InteractiveFlag.rotate,
                 ),
-                onTap: (tapPosition, point) {
-                  setState(() {
-                    currentPosition = point;
-                  });
-                },
+                // onTap: (tapPosition, point) {
+                //   setState(() {
+                //     currentPosition = point;
+                //   });
+                // },
               ),
               children: [
                 TileLayer(
