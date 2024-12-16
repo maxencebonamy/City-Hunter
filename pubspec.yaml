@@ -41,6 +41,7 @@ dependencies:
   flutter_map: ^7.0.2
   sliding_up_panel: ^2.0.0+1
   linear_progress_bar: "^1.1.2"
+  xrange: ^2.0.0
 
 dev_dependencies:
   flutter_test:

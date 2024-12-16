@@ -20,8 +20,8 @@ class _GameViewState extends State<GameView> {
           topLeft: Radius.circular(12.0),
           topRight: Radius.circular(12.0),
         ),
-        maxHeight: 270.0,
-        minHeight: 115.0,
+        maxHeight: 280.0,
+        minHeight: 120.0,
         panel: Center(
             child: Column(
           children: [
@@ -51,7 +51,7 @@ class _GameViewState extends State<GameView> {
                         child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("Trouvez", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w900, color: Colors.orange)),
+                        Text("Trouvez", style: TextStyle(fontSize: 16, fontWeight: FontWeight.w900, color: Colors.orange)),
                         Text("Argenteuil", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
                       ],
                     )),
@@ -73,7 +73,7 @@ class _GameViewState extends State<GameView> {
                     ),
                   ],
                 )),
-            const SizedBox(height: 16),
+            const SizedBox(height: 20),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               child: Row(
@@ -82,11 +82,12 @@ class _GameViewState extends State<GameView> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text("Round 1/10"),
+                        const Text("Round 4/10"),
+                        const SizedBox(height: 8),
                         LinearProgressBar(
-                          maxSteps: 6,
+                          maxSteps: 10,
                           progressType: LinearProgressBar.progressTypeLinear,
-                          currentStep: 1,
+                          currentStep: 4,
                           progressColor: Colors.orange,
                           backgroundColor: Colors.grey[300],
                           borderRadius: BorderRadius.circular(10),
@@ -105,6 +106,7 @@ class _GameViewState extends State<GameView> {
                 ],
               ),
             ),
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () => {},
               style: ButtonStyle(
@@ -126,6 +128,9 @@ class _GameViewState extends State<GameView> {
             options: const MapOptions(
               initialCenter: LatLng(46.603354, 1.888334),
               initialZoom: 5.2,
+              interactionOptions: InteractionOptions(
+                flags: InteractiveFlag.all & ~InteractiveFlag.rotate,
+              ),
             ),
             children: [
               TileLayer(
