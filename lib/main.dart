@@ -4,6 +4,7 @@ import 'package:project/blocs/cities_cubit.dart';
 import 'package:project/models/city.dart';
 import 'package:project/repositories/city_repository.dart';
 import 'package:project/ui/views/game_view.dart';
+import 'package:project/ui/views/home_view.dart';
 import 'package:project/utils/random.dart';
 
 void main() {
@@ -45,6 +46,13 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  int _selectedIndex = 0;
+
+  final List<Widget> _screens = [
+    const HomeView(),
+    const GameView(),
+  ];
+
   void fetchRandomCities(List<City> cities) {
     final List<int> randomNumbers = RandomUtils.generateRandomNumbers(10, cities.length);
     final List<String> randomCityIds = randomNumbers.map((index) => cities[index].id).toList();
@@ -65,40 +73,30 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return GameView();
-    return BlocBuilder<CitiesCubit, List<City>>(builder: (context, state) {
-      return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-          title: Text(widget.title),
-        ),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Expanded(
-                child: ListView.builder(
-                  itemCount: widget.cities.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    final CityWithBounds city = widget.cities[index];
-                    return ListTile(
-                      title: Text(city.name),
-                      subtitle: Text('Population: ${city.population}'),
-                    );
-                  },
-                ),
-              ),
-            ],
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.title, style: const TextStyle(color: Colors.orange, fontWeight: FontWeight.bold)),
+      ),
+      body: _screens[_selectedIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
           ),
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            fetchRandomCities(context.read<CitiesCubit>().state);
-          },
-          tooltip: 'Increment',
-          child: const Icon(Icons.add),
-        ),
-      );
-    });
+          BottomNavigationBarItem(
+            icon: Icon(Icons.list),
+            label: 'Scores',
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.amber[800],
+        onTap: (int index) {
+          setState(() {
+            _selectedIndex = index;
+          });
+        },
+      ),
+    );
   }
 }

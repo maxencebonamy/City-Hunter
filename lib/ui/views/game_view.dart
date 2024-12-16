@@ -48,8 +48,8 @@ class _GameViewState extends State<GameView> {
             topLeft: Radius.circular(12.0),
             topRight: Radius.circular(12.0),
           ),
-          maxHeight: 270.0,
-          minHeight: 115.0,
+          maxHeight: 280.0,
+          minHeight: 120.0,
           panel: Center(
             child: Column(
               children: [
@@ -79,7 +79,7 @@ class _GameViewState extends State<GameView> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text("Trouvez", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w900, color: Colors.orange)),
+                            const Text("Trouvez", style: TextStyle(fontSize: 16, fontWeight: FontWeight.w900, color: Colors.orange)),
                             Text(currentCityIndex >= 0 ? cities[currentCityIndex].name : "",
                                 style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
                           ],
@@ -113,7 +113,7 @@ class _GameViewState extends State<GameView> {
                     ],
                   ),
                 ),
-                const SizedBox(height: 16),
+                const SizedBox(height: 20),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                   child: Row(
@@ -123,6 +123,7 @@ class _GameViewState extends State<GameView> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text("Round ${currentCityIndex + 1}/10"),
+                            const SizedBox(height: 8),
                             LinearProgressBar(
                               maxSteps: 10,
                               progressType: LinearProgressBar.progressTypeLinear,
@@ -145,6 +146,7 @@ class _GameViewState extends State<GameView> {
                     ],
                   ),
                 ),
+                const SizedBox(height: 20),
                 ElevatedButton(
                   onPressed: () => {},
                   style: ButtonStyle(
@@ -167,7 +169,9 @@ class _GameViewState extends State<GameView> {
               options: MapOptions(
                 initialCenter: const LatLng(46.603354, 1.888334),
                 initialZoom: 5.2,
-                interactionOptions: const InteractionOptions(flags: InteractiveFlag.pinchZoom | InteractiveFlag.drag),
+                interactionOptions: InteractionOptions(
+                  flags: InteractiveFlag.all & ~InteractiveFlag.rotate,
+                ),
                 onTap: (tapPosition, point) {
                   setState(() {
                     currentPosition = point;
