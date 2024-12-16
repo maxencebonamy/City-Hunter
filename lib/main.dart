@@ -75,7 +75,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title, style: const TextStyle(color: Colors.orange, fontWeight: FontWeight.bold)),
+        title: Text(widget.title),
       ),
       body: _screens[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(

@@ -18,7 +18,7 @@ class _HomeViewState extends State<HomeView> {
           padding: EdgeInsets.all(16.0),
           child: Text(
             'Sélectionnez un niveau',
-            style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold, color: Color.fromRGBO(0, 0, 0, 0.4)),
+            style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold, color: Colors.orange),
           ),
         ),
         Expanded(
@@ -32,6 +32,9 @@ class _HomeViewState extends State<HomeView> {
                   level.description,
                   style: const TextStyle(color: Color.fromRGBO(0, 0, 0, 0.4)),
                 ),
+                onTap: () {
+                  Navigator.pushNamed(context, '/game', arguments: level);
+                },
               );
             },
           ),
