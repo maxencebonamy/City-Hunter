@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:project/blocs/cities_cubit.dart';
 import 'package:project/models/city.dart';
 import 'package:project/repositories/city_repository.dart';
+import 'package:project/ui/views/game_view.dart';
 import 'package:project/utils/random.dart';
 
 void main() {
@@ -64,6 +65,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    return GameView();
     return BlocBuilder<CitiesCubit, List<City>>(builder: (context, state) {
       return Scaffold(
         appBar: AppBar(
