@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:xrange/xrange.dart';
 
 enum Levels { beginner, intermediate, advanced, expert, master, legendary, ultime }
@@ -29,17 +27,17 @@ extension LevelsExtension on Levels {
       case Levels.beginner:
         return NumRange.atLeast(100000);
       case Levels.intermediate:
-        return NumRange.closed(60000, 100000);
+        return NumRange.closedOpen(60000, 100000);
       case Levels.advanced:
-        return NumRange.closed(45000, 60000);
+        return NumRange.closedOpen(45000, 60000);
       case Levels.expert:
-        return NumRange.closed(35000, 45000);
+        return NumRange.closedOpen(35000, 45000);
       case Levels.master:
-        return NumRange.closed(28000, 35000);
+        return NumRange.closedOpen(28000, 35000);
       case Levels.legendary:
-        return NumRange.closed(23000, 28000);
+        return NumRange.closedOpen(23000, 28000);
       case Levels.ultime:
-        return NumRange.closed(20000, 23000);
+        return NumRange.closedOpen(20000, 23000);
     }
   }
 
@@ -47,7 +45,7 @@ extension LevelsExtension on Levels {
     if (range.lastValue == null) {
       return 'Plus de ${range.firstValue} habitants';
     } else {
-      return 'Entre ${range.firstValue} et ${range.lastValue} habitants';
+      return 'Entre ${range.firstValue} et ${range.lastValue! + 1} habitants';
     }
   }
 }

@@ -1,20 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:project/blocs/cities_cubit.dart';
+import 'package:project/blocs/game_cubit.dart';
 import 'package:project/models/city.dart';
 import 'package:project/repositories/city_repository.dart';
 import 'package:project/ui/views/game_view.dart';
 import 'package:project/ui/views/home_view.dart';
 import 'package:project/ui/views/scores_view.dart';
-import 'package:project/utils/random.dart';
 
 void main() {
-  final CitiesCubit citiesCubit = CitiesCubit(CityRepository());
+  final citiesCubit = CitiesCubit(CityRepository());
   citiesCubit.loadCities();
+
+  final gameCubit = GameCubit(CityRepository(), citiesCubit);
 
   runApp(MultiBlocProvider(
     providers: [
       BlocProvider(create: (_) => citiesCubit),
+      BlocProvider(create: (_) => gameCubit),
     ],
     child: const MyApp(),
   ));
@@ -57,24 +60,6 @@ class _MyHomePageState extends State<MyHomePage> {
     const HomeView(),
     const ScoresView(),
   ];
-
-  void fetchRandomCities(List<City> cities) {
-    final List<int> randomNumbers = RandomUtils.generateRandomNumbers(10, cities.length);
-    final List<String> randomCityIds = randomNumbers.map((index) => cities[index].id).toList();
-    final CityRepository cityRepository = CityRepository();
-    final List<CityWithBounds> randomCities = [];
-    for (String id in randomCityIds) {
-      cityRepository.fetchCityById(id).then((CityWithBounds city) {
-        randomCities.add(city);
-        if (randomCities.length == randomCityIds.length) {
-          setState(() {
-            widget.cities.clear();
-            widget.cities.addAll(randomCities);
-          });
-        }
-      });
-    }
-  }
 
   @override
   Widget build(BuildContext context) {

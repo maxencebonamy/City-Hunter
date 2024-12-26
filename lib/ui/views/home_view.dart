@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:project/blocs/game_cubit.dart';
 import 'package:project/models/levels.dart';
 
 class HomeView extends StatefulWidget {
@@ -33,7 +35,12 @@ class _HomeViewState extends State<HomeView> {
                   style: const TextStyle(color: Color.fromRGBO(0, 0, 0, 0.4)),
                 ),
                 onTap: () {
-                  Navigator.pushNamed(context, '/game', arguments: level);
+                  final gameCubit = context.read<GameCubit>();
+                  gameCubit.reset(level).then((_) {
+                    if (context.mounted) {
+                      Navigator.pushNamed(context, '/game', arguments: level);
+                    }
+                  });
                 },
               );
             },
