@@ -7,6 +7,8 @@ import 'package:project/blocs/game_cubit.dart';
 import 'package:project/models/city.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
+enum GameStatus { playing, paused, finished }
+
 class GameView extends StatefulWidget {
   const GameView({super.key});
 
@@ -16,26 +18,57 @@ class GameView extends StatefulWidget {
 
 class _GameViewState extends State<GameView> {
   final _mapController = MapController();
+  GameStatus status = GameStatus.playing;
   LatLng currentPosition = const LatLng(46.603354, 1.888334);
   List<Marker> markers = [];
+  List<LatLng> polylinePoints = [];
   int currentCityIndex = 0;
+  int score = 0;
 
   void _onMapTap(LatLng point) {
     setState(() {
-      currentPosition = point;
-      markers = [
+      if (status == GameStatus.playing) {
+        currentPosition = point;
+        markers = [
+          Marker(
+            width: 40.0,
+            height: 40.0,
+            point: point,
+            alignment: Alignment.topCenter,
+            child: const Icon(
+              Icons.location_on,
+              size: 40.0,
+              color: Colors.orange,
+            ),
+          ),
+        ];
+      }
+    });
+  }
+
+  void _displayCityOnMap(CityWithBounds city) {
+    setState(() {
+      markers.add(
         Marker(
           width: 40.0,
           height: 40.0,
-          point: point,
+          point: city.center,
           alignment: Alignment.topCenter,
           child: const Icon(
             Icons.location_on,
             size: 40.0,
-            color: Colors.orange,
+            color: Colors.green,
           ),
         ),
-      ];
+      );
+      polylinePoints = [currentPosition, city.center];
+    });
+  }
+
+  void _updateScore(CityWithBounds city) {
+    final distance = const Distance().as(LengthUnit.Kilometer, currentPosition, city.center);
+    setState(() {
+      score += ((1000 - distance) / 10).clamp(0, 100).round();
     });
   }
 
@@ -91,8 +124,21 @@ class _GameViewState extends State<GameView> {
                       ElevatedButton(
                         onPressed: () {
                           setState(() {
-                            if (currentCityIndex < cities.length - 1) {
-                              currentCityIndex++;
+                            if (status == GameStatus.paused) {
+                              if (currentCityIndex < cities.length - 1) {
+                                setState(() {
+                                  currentCityIndex++;
+                                  markers.clear();
+                                  polylinePoints.clear();
+                                });
+                                status = GameStatus.playing;
+                              } else {
+                                status = GameStatus.finished;
+                              }
+                            } else if (status == GameStatus.playing && markers.isNotEmpty) {
+                              _displayCityOnMap(cities[currentCityIndex]);
+                              _updateScore(cities[currentCityIndex]);
+                              status = GameStatus.paused;
                             }
                           });
                         },
@@ -105,9 +151,9 @@ class _GameViewState extends State<GameView> {
                             ),
                           ),
                         ),
-                        child: const Text(
-                          "Valider",
-                          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                        child: Text(
+                          status == GameStatus.playing ? "Valider" : "Suivant",
+                          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                         ),
                       ),
                     ],
@@ -136,11 +182,11 @@ class _GameViewState extends State<GameView> {
                         ),
                       ),
                       const SizedBox(width: 12),
-                      const Column(
+                      Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text("SCORE", style: TextStyle(fontSize: 14, color: Colors.grey)),
-                          Text("0", style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+                          const Text("SCORE", style: TextStyle(fontSize: 14, color: Colors.grey)),
+                          Text(score.toString(), style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
                         ],
                       ),
                     ],
@@ -181,6 +227,16 @@ class _GameViewState extends State<GameView> {
               children: [
                 TileLayer(
                   urlTemplate: 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager_nolabels/{z}/{x}/{y}{r}.png',
+                ),
+                PolylineLayer(
+                  polylines: [
+                    Polyline(
+                      points: polylinePoints,
+                      strokeWidth: 2.0,
+                      pattern: StrokePattern.dashed(segments: const [10, 10]),
+                      color: Colors.green,
+                    ),
+                  ],
                 ),
                 MarkerLayer(
                   markers: markers,
