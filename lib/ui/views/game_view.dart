@@ -5,6 +5,8 @@ import 'package:latlong2/latlong.dart';
 import 'package:linear_progress_bar/linear_progress_bar.dart';
 import 'package:project/blocs/game_cubit.dart';
 import 'package:project/models/city.dart';
+import 'package:project/models/levels.dart';
+import 'package:project/ui/views/results_view.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 enum GameStatus { playing, paused, finished }
@@ -134,6 +136,12 @@ class _GameViewState extends State<GameView> {
                                 status = GameStatus.playing;
                               } else {
                                 status = GameStatus.finished;
+                                final level = ModalRoute.of(context)!.settings.arguments as Levels;
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) => ResultsView(score: score, level: level),
+                                  ),
+                                );
                               }
                             } else if (status == GameStatus.playing && markers.isNotEmpty) {
                               _displayCityOnMap(cities[currentCityIndex]);
