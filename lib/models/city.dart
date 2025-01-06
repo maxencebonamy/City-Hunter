@@ -1,4 +1,5 @@
 import 'package:latlong2/latlong.dart';
+import 'package:project/utils/polygon.dart';
 
 LatLng parseLatLng(dynamic coordinates) {
   return LatLng(double.parse(coordinates[1].toString()), double.parse(coordinates[0].toString()));
@@ -49,5 +50,18 @@ class CityWithBounds extends City {
     }
 
     return CityWithBounds(city.id, city.name, city.population, city.center, bounds);
+  }
+
+  List<List<LatLng>> getBoundsAsLatLng() {
+    return bounds;
+  }
+
+  bool isInside(LatLng point) {
+    for (List<LatLng> polygon in bounds) {
+      if (isInsidePolygon(point, polygon)) {
+        return true;
+      }
+    }
+    return false;
   }
 }

@@ -24,6 +24,7 @@ class _GameViewState extends State<GameView> {
   LatLng currentPosition = const LatLng(46.603354, 1.888334);
   List<Marker> markers = [];
   List<LatLng> polylinePoints = [];
+  List<Polygon> polygons = [];
   int currentCityIndex = 0;
   int score = 0;
 
@@ -64,13 +65,25 @@ class _GameViewState extends State<GameView> {
         ),
       );
       polylinePoints = [currentPosition, city.center];
+      polygons = city.bounds.map((List<LatLng> bounds) {
+        return Polygon(
+          points: bounds,
+          borderColor: Colors.blue,
+          borderStrokeWidth: 2.0,
+          color: Colors.blue.withOpacity(0.2),
+        );
+      }).toList();
     });
   }
 
   void _updateScore(CityWithBounds city) {
     final distance = const Distance().as(LengthUnit.Kilometer, currentPosition, city.center);
     setState(() {
-      score += ((1000 - distance) / 10).clamp(0, 100).round();
+      if (city.isInside(currentPosition)) {
+        score += 100;
+      } else {
+        score += ((1000 - distance) / 10).clamp(0, 100).round();
+      }
     });
   }
 
@@ -132,6 +145,7 @@ class _GameViewState extends State<GameView> {
                                   currentCityIndex++;
                                   markers.clear();
                                   polylinePoints.clear();
+                                  polygons.clear();
                                 });
                                 status = GameStatus.playing;
                               } else {
@@ -245,6 +259,9 @@ class _GameViewState extends State<GameView> {
                       color: Colors.green,
                     ),
                   ],
+                ),
+                PolygonLayer(
+                  polygons: polygons,
                 ),
                 MarkerLayer(
                   markers: markers,
