@@ -174,7 +174,11 @@ class _GameViewState extends State<GameView> {
                           ),
                         ),
                         child: Text(
-                          status == GameStatus.playing ? "Valider" : "Suivant",
+                          status == GameStatus.playing
+                              ? "Valider"
+                              : currentCityIndex == cities.length - 1
+                                  ? "Terminer"
+                                  : "Suivant",
                           style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                         ),
                       ),
