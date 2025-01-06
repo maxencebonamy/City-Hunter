@@ -1,16 +1,19 @@
-# project
+# City Hunter
 
-A new Flutter project.
+## Fonctionnalités
 
-## Getting Started
+City Hunter est un jeu mobile dans lequel le joueur doit placer une ville sur une carte vierge de France. Le joueur gagne des points en fonction de la distance entre le point qu'il a placé et la ville recherchée. Plus la distance est faible, plus le joueur gagne de points. Chaque partie dure 10 tours. Le joueur peut choisir la difficulté au début de chaque partie, cette dernière dépendant du nombre d'habitants des villes.
+Le joueur a accès à l'historique de ses meilleurs scores pour chaque niveau de difficulté.
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
+## Versions utilisées
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Version de Flutter : 3.24.5
+Version de Dart : 3.5.4
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+## API utilisées
+
+Nous avons utilisé l'API du gouvernement concernant le découpage administratif des communes, dont voici la documentation : https://geo.api.gouv.fr/decoupage-administratif/communes.
+
+De plus, pour afficher la carte sans les labels, nous avons utilisé l'API de CartoDB, dont voici l'url : https://{s}.basemaps.cartocdn.com/rastertiles/voyager_nolabels/{z}/{x}/{y}{r}.png
