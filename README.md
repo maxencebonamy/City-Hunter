@@ -9,6 +9,7 @@ Le joueur a accès à l'historique de ses meilleurs scores pour chaque niveau de
 ## Versions utilisées
 
 Version de Flutter : 3.24.5
+<br>
 Version de Dart : 3.5.4
 
 
@@ -16,4 +17,4 @@ Version de Dart : 3.5.4
 
 Nous avons utilisé l'API du gouvernement concernant le découpage administratif des communes, dont voici la documentation : https://geo.api.gouv.fr/decoupage-administratif/communes.
 
-De plus, pour afficher la carte sans les labels, nous avons utilisé l'API de CartoDB, dont voici l'url : https://{s}.basemaps.cartocdn.com/rastertiles/voyager_nolabels/{z}/{x}/{y}{r}.png
+De plus, pour afficher la carte sans les labels, nous avons utilisé l'API de CartoDB, dont voici le template de l'url : https://{s}.basemaps.cartocdn.com/rastertiles/voyager_nolabels/{z}/{x}/{y}{r}.png
