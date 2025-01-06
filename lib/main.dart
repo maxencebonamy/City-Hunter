@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
         '/game': (context) => const GameView(),
         '/scores': (context) => const ScoresView(),
       },
-      home: MyHomePage(title: 'Villes de France'),
+      home: MyHomePage(title: 'CityHunter'),
     );
   }
 }
