@@ -7,10 +7,16 @@ class ResultsView extends StatelessWidget {
   final Levels level;
   const ResultsView({super.key, required this.score, required this.level});
 
+  void updateHighScore(int score, Levels level) async {
+    final PreferencesRepository preferencesRepository = PreferencesRepository();
+    final int? currentHighScore = await preferencesRepository.getHighScore(level);
+    if (currentHighScore == null || score > currentHighScore) {
+      preferencesRepository.setHighScore(level, score);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    final PreferencesRepository preferencesRepository = PreferencesRepository();
-    preferencesRepository.setHighScore(level, score);
     return Scaffold(
       body: Center(
         child: Column(
@@ -18,9 +24,9 @@ class ResultsView extends StatelessWidget {
           children: [
             const Text('Votre score :', style: TextStyle(fontSize: 20.0)),
             Text(score.toString(), style: const TextStyle(fontSize: 40.0, fontWeight: FontWeight.bold)),
-            // Two buttons: one to play again, one to go back to the home screen. content is text and icon
             ElevatedButton.icon(
               onPressed: () {
+                updateHighScore(score, level);
                 Navigator.pushNamed(context, '/game', arguments: level);
               },
               icon: const Icon(Icons.replay),
@@ -37,7 +43,8 @@ class ResultsView extends StatelessWidget {
             ),
             ElevatedButton.icon(
               onPressed: () {
-                Navigator.of(context).pushNamed('/');
+                updateHighScore(score, level);
+                Navigator.of(context).popUntil((route) => route.isFirst);
               },
               icon: const Icon(Icons.home),
               label: const Text('Accueil'),

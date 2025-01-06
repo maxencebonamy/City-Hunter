@@ -6,7 +6,6 @@ import 'package:project/models/city.dart';
 import 'package:project/repositories/city_repository.dart';
 import 'package:project/ui/views/game_view.dart';
 import 'package:project/ui/views/home_view.dart';
-import 'package:project/ui/views/results_view.dart';
 import 'package:project/ui/views/scores_view.dart';
 
 void main() {
@@ -32,7 +31,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.orange),
         useMaterial3: true,
       ),
       routes: {
