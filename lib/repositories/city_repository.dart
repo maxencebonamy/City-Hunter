@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart';
-import 'package:project/models/city.dart';
+import 'package:city_hunter/models/city.dart';
 
 class CityRepository {
   Future<List<City>> fetchAllCities() async {

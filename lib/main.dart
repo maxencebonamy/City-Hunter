@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:project/blocs/cities_cubit.dart';
-import 'package:project/blocs/game_cubit.dart';
-import 'package:project/models/city.dart';
-import 'package:project/repositories/city_repository.dart';
-import 'package:project/ui/views/game_view.dart';
-import 'package:project/ui/views/home_view.dart';
-import 'package:project/ui/views/scores_view.dart';
+import 'package:city_hunter/blocs/cities_cubit.dart';
+import 'package:city_hunter/blocs/game_cubit.dart';
+import 'package:city_hunter/models/city.dart';
+import 'package:city_hunter/repositories/city_repository.dart';
+import 'package:city_hunter/ui/views/game_view.dart';
+import 'package:city_hunter/ui/views/home_view.dart';
+import 'package:city_hunter/ui/views/scores_view.dart';
 
 void main() {
   final citiesCubit = CitiesCubit(CityRepository());

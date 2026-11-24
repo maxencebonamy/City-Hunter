@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:project/blocs/game_cubit.dart';
-import 'package:project/models/levels.dart';
+import 'package:city_hunter/blocs/game_cubit.dart';
+import 'package:city_hunter/models/levels.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});

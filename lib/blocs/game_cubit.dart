@@ -1,9 +1,9 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:project/blocs/cities_cubit.dart';
-import 'package:project/models/city.dart';
-import 'package:project/models/levels.dart';
-import 'package:project/repositories/city_repository.dart';
-import 'package:project/utils/random.dart';
+import 'package:city_hunter/blocs/cities_cubit.dart';
+import 'package:city_hunter/models/city.dart';
+import 'package:city_hunter/models/levels.dart';
+import 'package:city_hunter/repositories/city_repository.dart';
+import 'package:city_hunter/utils/random.dart';
 
 class GameCubit extends Cubit<List<CityWithBounds>> {
   final CityRepository cityRepository;

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:project/models/levels.dart';
-import 'package:project/repositories/preferences_repository.dart';
+import 'package:city_hunter/models/levels.dart';
+import 'package:city_hunter/repositories/preferences_repository.dart';
 
 class ResultsView extends StatelessWidget {
   final int score;

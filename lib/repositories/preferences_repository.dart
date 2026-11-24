@@ -1,4 +1,4 @@
-import 'package:project/models/levels.dart';
+import 'package:city_hunter/models/levels.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PreferencesRepository {

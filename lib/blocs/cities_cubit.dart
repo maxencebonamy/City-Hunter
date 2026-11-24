@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:project/models/city.dart';
-import 'package:project/repositories/city_repository.dart';
+import 'package:city_hunter/models/city.dart';
+import 'package:city_hunter/repositories/city_repository.dart';
 
 class CitiesCubit extends Cubit<List<City>> {
   final CityRepository cityRepository;

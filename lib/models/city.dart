@@ -1,5 +1,5 @@
 import 'package:latlong2/latlong.dart';
-import 'package:project/utils/polygon.dart';
+import 'package:city_hunter/utils/polygon.dart';
 
 LatLng parseLatLng(dynamic coordinates) {
   return LatLng(double.parse(coordinates[1].toString()), double.parse(coordinates[0].toString()));
